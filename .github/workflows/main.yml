@@ -18,8 +18,7 @@ jobs:
       run: |
         IMAGE_NAME=test_container:${GITHUB_JOB}
         docker build CustomerApi -f CustomerApi/CustomerApi/Dockerfile -t docker.pkg.github.com/microservicedemo/${IMAGE_NAME}
-        docker login docker.pkg.github.com --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
+        echo docker login docker.pkg.github.com --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
+        docker login docker.pkg.github.com --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }}
         docker push docker.pkg.github.com/microservicedemo/${IMAGE_NAME}
-      env:
-          DOCKER_USERNAME: ${{ secrets.GITHUB_DOCKER_USERNAME }} # リポジトリのsecretsとして定義した値を環境変数に渡す
-          DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+  
