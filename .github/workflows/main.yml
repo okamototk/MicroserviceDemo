@@ -17,8 +17,8 @@ jobs:
     - name: build Dockerfile and push image # userで外部ファイル or 定義済みの処理を実行できる。ここではリポジトリのcheckout
       run: |
         IMAGE_NAME=test_container:${{github.job}}
-        docker build CustomerApi -f CustomerApi/CustomerApi/Dockerfile -t docker.pkg.github.com/okamototk/microservicedemo/${IMAGE_NAME}
+        docker build CustomerApi -f CustomerApi/CustomerApi/Dockerfile -t docker.pkg.github.com/${{github.repository,,}}/${IMAGE_NAME}
         echo docker login docker.pkg.github.com --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
         docker login docker.pkg.github.com --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }}
-        docker push docker.pkg.github.com/okamototk/microservicedemo/${IMAGE_NAME}
+        docker push docker.pkg.github.com/${{github.repository,,}}/${IMAGE_NAME}
   
