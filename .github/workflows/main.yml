@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: build Dockerfile and push image # userで外部ファイル or 定義済みの処理を実行できる。ここではリポジトリのcheckout
       run: |
-        IMAGE_NAME=test_container:${GITHUB_JOB}
+        IMAGE_NAME=test_container:${{GITHUB_JOB}}
         docker build CustomerApi -f CustomerApi/CustomerApi/Dockerfile -t docker.pkg.github.com/microservicedemo/${IMAGE_NAME}
         echo docker login docker.pkg.github.com --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
         docker login docker.pkg.github.com --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }}
